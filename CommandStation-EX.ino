@@ -1,8 +1,8 @@
 //DCC EX Modified
-// Goal is Loco reciving <T 14 10 1> commands and fuction commands and then processing them.
-// MQTT serial messaged are currently NOT being parsed and processed.
-//EXAMPLE: Loco 14 given speed forward command, command read from rocrail/command by Node-Red, data is formatted in node red and outputted to topic "test"
-//Contents of test is subscribed to, and output is sent to serial.write.
+// Goal is Loco receiving <T 14 10 1> commands and function commands and then processing them.
+// MQTT serial messaged are currently NOT being parsed and processed. Need to be.
+//EXAMPLE: Loco 14 given speed forward command, command read from rocrail/command by Node-Red, data is formatted in node-red and output to topic "test"
+//Contents of test is subscribed to, and output is sent to serial.write and serial.print
 //Commands sent to ESP 32 WROOM from Arduino serial AND from DCC EX web throttle are proccessed correctly. Loco fully controlable.
 
 
