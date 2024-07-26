@@ -1,3 +1,11 @@
+//DCC EX Modified
+// Goal is Loco reciving <T 14 10 1> commands and fuction commands and then processing them.
+// MQTT serial messaged are currently NOT being parsed and processed.
+//EXAMPLE: Loco 14 given speed forward command, command read from rocrail/command by Node-Red, data is formatted in node red and outputted to topic "test"
+//Contents of test is subscribed to, and output is sent to serial.write.
+//Commands sent to ESP 32 WROOM from Arduino serial AND from DCC EX web throttle are proccessed correctly. Loco fully controlable.
+
+
 ////////////////////////////////////////////////////////////////////////////////////
 //  DCC-EX CommandStation-EX   Please see https://DCC-EX.com
 //
@@ -30,23 +38,23 @@
 #include <PubSubClient.h>
 
 // WiFi
-const char *ssid = "TNCAPE08E27"; // Enter your Wi-Fi name
-const char *password = "F829427C8E";  // Enter Wi-Fi password// MQTT Broker
-const char *mqtt_broker = "192.168.1.129";
+const char *ssid = "*****"; // Enter your Wi-Fi name
+const char *password = "*******";  // Enter Wi-Fi password// MQTT Broker
+const char *mqtt_broker = "192.168.***.***";
 const char *topic = "test";
-const char *mqtt_username = "emqx";
-const char *mqtt_password = "public";
+const char *mqtt_username = "****";
+const char *mqtt_password = "****";
 const int mqtt_port = 1883;
 
 //Set tanks and PINS
 
 int tank; //Front tank status
 int rtank; //Rear reserve and filling access tank
-const int motor = 21; //RX2 on device
-int waterlow = 16; // TX2 on device
-int waterhigh = 17; // D18 on device
-int rwaterlow = 18; //D19 on device
-int rwaterhigh = 19; //D15 on device
+const int motor = 21; //21 on device
+int waterlow = 16; // 16 on device
+int waterhigh = 17; // D17 on device
+int rwaterlow = 18; //D18 on device
+int rwaterhigh = 19; //D19 on device
 int wl=0;
 int wh=0;
 int rwl=0;
@@ -289,7 +297,8 @@ void loop()
       client.loop();
 
  
-
+//Tank sensor reads
+  // Everything behind "//" below, is omitted in order to clean serial output for testing
     
 wl = digitalRead(waterlow); 
 wh = digitalRead(waterhigh);
@@ -310,6 +319,8 @@ if (tank == LOW) {digitalWrite (motor, LOW);} //Front tank is now full pump moto
 
 //if (rtank == HIGH) {digitalWrite (motor, LOW);} //Front tank is empty AND rear tank is empty, stop motor to avoid damage to motor
 
+//Send loco for refueling
+  
 //if (rwl == HIGH && cycle == false) {client.publish("rocrail/service/client","<lc id=\"WD1\" cmd=\"gotoblock\" blockid=\"bk4\"/>");}
 
 //if (rwl == HIGH && cycle == false) {client.publish("rocrail/service/client","<lc id=\"WD1\" cmd=\"go\"/>");}
